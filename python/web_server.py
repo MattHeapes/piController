@@ -24,15 +24,48 @@ def connect():
 
 def open_socket(ip):
     # Open a socket
-    address = (ip, 80)
+    address = (ip, 90)
     connection = socket.socket()
     connection.bind(address)
     connection.listen(1)
     print(connection)
     return connection
     
+def webpage(temperature, state):
+    #Template HTML
+    html = f"""
+            <!DOCTYPE html>
+            <html>
+            <form action="./lighton">
+            <input type="submit" value="Light on" />
+            </form>
+            <form action="./lightoff">
+            <input type="submit" value="Light off" />
+            </form>
+            <p>LED is {state}</p>
+            <p>Temperature is {temperature}</p>
+            </body>
+            </html>
+            """
+    return str(html)
+
+def serve(connection):
+    #Start a web server
+    state = 'OFF'
+    pico_led.off()
+    temperature = 0
+    while True:
+        client = connection.accept()[0]
+        request = client.recv(1024)
+        request = str(request)
+        print(request)
+        html = webpage(temperature, state)
+        client.send(html)
+        client.close()
+
 try:
     ip = connect()
     connection = open_socket(ip)
+    serve(connection)
 except KeyboardInterrupt:
     machine.reset()

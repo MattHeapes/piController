@@ -21,6 +21,15 @@ h1 {
     background-color: darkgreen;
 }
 
+#onbutton:hover {
+    background-color: chartreuse;
+}
+
 #offbutton {
     background-color: darkred;
 }
+
+#offbutton:hover {
+    background-color: red;
+}
+
