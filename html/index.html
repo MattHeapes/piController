@@ -9,14 +9,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Heapes PiController</title>
+        <link href="./CSS/default.css" rel="stylesheet">
     </head>
     <body>
         <div class="main">
-            <h1>Remote LED Wall Control</h1>
+            <h1 id="heading">Remote LED Wall Control</h1>
             <p>This site is used the control my Raspberry Pi Pico W - This is only a test</p>
             <form action="./lighton">
-                <input type="submit" value="ON"
+                <input class="button" id="onbutton" type="submit" value="ON">
             </form>
+            <form action="./lightoff">
+                <input class="button" id="offbutton" type="submit" value="OFF" />
+            </form>
+            <p>LED is {state}</p>
+            <p>Temperature is {temperature}</p>
         </div> <!--End of main-->
     </body>
 

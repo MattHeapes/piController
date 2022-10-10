@@ -1,0 +1,26 @@
+/* Default CSS styles for Raspberry Pi Pico W Controller Project */
+
+h1 {
+    font-size: 60px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.button {
+    display: block;
+    font-family: inherit;
+    font-size: 100%;
+    margin: 5px;
+    box-sizing: border-box;
+    width: 120px;
+    padding: 5px;
+    height: 40px;
+}
+
+#onbutton {
+    background-color: darkgreen;
+}
+
+#offbutton {
+    background-color: darkred;
+}
