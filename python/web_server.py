@@ -24,7 +24,7 @@ def connect():
 
 def open_socket(ip):
     # Open a socket
-    address = (ip, 90)
+    address = (ip, 80)
     connection = socket.socket()
     connection.bind(address)
     connection.listen(1)
@@ -37,10 +37,10 @@ def webpage(temperature, state):
             <!DOCTYPE html>
             <html>
             <form action="./lighton">
-            <input type="submit" value="Light on" />
+            <input type="submit" value="ON" />
             </form>
             <form action="./lightoff">
-            <input type="submit" value="Light off" />
+            <input type="submit" value="OFF" />
             </form>
             <p>LED is {state}</p>
             <p>Temperature is {temperature}</p>
@@ -58,7 +58,17 @@ def serve(connection):
         client = connection.accept()[0]
         request = client.recv(1024)
         request = str(request)
-        print(request)
+        try:
+            request = request.split()[1]
+        except IndexError:
+            pass
+        if request == '/lighton?':
+            pico_led.on()
+            state = 'ON'
+        elif request =='/lightoff?':
+            pico_led.off()
+            state = 'OFF'
+        temperature = pico_temp_sensor.temp
         html = webpage(temperature, state)
         client.send(html)
         client.close()
